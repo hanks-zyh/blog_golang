@@ -5,21 +5,19 @@ import (
 	"../model"
 	"github.com/gin-gonic/gin"
 	"strconv"
-	"time"
-	"fmt"
 )
 
 func HandlePostArticle(c *gin.Context) {
 	uid := c.PostForm("uid")
-	article := model.Article{
-		Title:     c.PostForm("title"),
-		Content:   c.PostForm("content"),
-		CreatedAt: time.Now().UnixNano() / 1000000,
-		UpdatedAt: time.Now().UnixNano() / 1000000,
-	}
 
 	uid64, _ := strconv.ParseInt(uid, 10, 64)
-	articleId, e := dao.PostArticle(uid64, &article)
+	article := model.Article{
+		Uid:     uid64,
+		Title:   c.PostForm("title"),
+		Content: c.PostForm("content"),
+	}
+
+	articleId, e := dao.PostArticle(&article)
 	SendResult(c, e, articleId)
 }
 
@@ -36,8 +34,7 @@ func HandlePutArticle(c *gin.Context) {
 	article, _ := dao.GetArticle(articleId64)
 	article.Title = c.PostForm("title")
 	article.Content = c.PostForm("content")
-	article.UpdatedAt = time.Now().UnixNano() / 1000000
-	e := dao.PutArticle(articleId64, &article)
+	e := dao.PutArticle(&article)
 	SendResult(c, e, nil)
 }
 

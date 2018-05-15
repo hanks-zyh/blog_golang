@@ -4,7 +4,6 @@ import (
 	"../dao"
 	"../model"
 	"github.com/gin-gonic/gin"
-	"time"
 )
 
 func HandleSignup(c *gin.Context) {
@@ -12,11 +11,9 @@ func HandleSignup(c *gin.Context) {
 	pwd := c.PostForm("pwd")
 	phone := c.PostForm("phone")
 	u := model.User{
-		Username:  username,
-		Pwd:       pwd,
-		Phone:     phone,
-		CreatedAt: time.Now().UnixNano() / 1000000,
-		UpdatedAt: time.Now().UnixNano() / 1000000,
+		Username: username,
+		Pwd:      pwd,
+		Phone:    phone,
 	}
 	user, e := dao.SignUp(&u)
 	SendResult(c, e, user)
