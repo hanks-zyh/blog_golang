@@ -49,5 +49,5 @@ var dev = Config{
 var AppConfig *Config
 
 func init() {
-	AppConfig = &dev
+	AppConfig = &product
 }

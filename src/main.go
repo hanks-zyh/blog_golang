@@ -10,7 +10,6 @@ import (
 )
 
 func init() {
-	//config := conf.Product
 	config := conf.AppConfig
 
 	connect := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
@@ -19,7 +18,6 @@ func init() {
 		config.Mysql.Address,
 		config.Mysql.Port,
 		config.Mysql.DbName)
-	fmt.Println(connect)
 	db, err := gorm.Open("mysql", connect)
 	if err != nil {
 		panic("failed to connect database")
